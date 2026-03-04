@@ -1,0 +1,13 @@
+# Compiled Executables (Windows/Linux)
+*.exe
+*.out
+*.o
+*.obj
+
+# IDE folders
+.vscode/
+.idea/
+
+# Large folders
+bin/
+build/
