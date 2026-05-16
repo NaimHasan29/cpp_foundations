@@ -11,3 +11,5 @@
 # Large folders
 bin/
 build/01-NumberGuessingGame/PlayGame
+01-NumberGuessingGame/highscore.txt
+01-NumberGuessingGame/PlayGame

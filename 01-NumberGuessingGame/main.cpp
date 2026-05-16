@@ -2,13 +2,36 @@
 #include <ctime>   
 #include <cstdlib> 
 #include <limits>
+#include <fstream>
 
 using namespace std;
 
+int loadHighScore() {
+    ifstream infile("highscore.txt");
+    int record = 999;
+    if (infile >> record) {
+        return record;
+    }
+    return 999; 
+}
+
+void saveHighScore(int newRecord) {
+    ofstream outfile("highscore.txt");
+    if (outfile.is_open()) {
+        outfile << newRecord;
+    }
+}
+
 int main() {
     char playAgain;
+    int bestSessionScore = loadHighScore();
     
     cout << "--- Number Guessing Game ---" << endl;
+    if (bestSessionScore != 999) {
+        cout << "All-time Personal Best: " << bestSessionScore << " tries" << endl;
+    } else {
+        cout << "No record found. Set your personal best this round!" << endl;
+    }
     
     do {
         srand(time(0)); 
@@ -33,6 +56,12 @@ int main() {
             
             if (guess == secretNumber) {
                 cout << "Correct! You win!" << endl;
+                
+                if (attempts < bestSessionScore) {
+                    cout << "New Record! You beat the old high score!" << endl;
+                    bestSessionScore = attempts;
+                    saveHighScore(bestSessionScore);
+                }
             } else if (guess > secretNumber) {
                 cout << "Too high!" << endl;
             } else {
